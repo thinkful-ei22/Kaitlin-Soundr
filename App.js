@@ -1,13 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { Button, Input, CardSection, Card } from './src/components/common';
 
 export default class App extends React.Component {
+
   render() {
+    const { container, imageStye } = styles;
+
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+      <View style={container}>
+        <Image style={imageStye} />
+          <CardSection>
+            <Input label="email" placeholder="email@email.com" />
+          </CardSection>
+          
+          <CardSection>
+            <Input label="password" placeholder="password" />
+          </CardSection>
+          
+          <CardSection>
+            <Button>
+              Log In
+            </Button>
+          </CardSection>
       </View>
     );
   }
@@ -20,4 +35,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  imageStye: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: '#f7f7f7',
+    marginBottom: 20,
+    marginTop: -20
+  }
 });
