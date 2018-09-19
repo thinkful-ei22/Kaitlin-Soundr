@@ -1,8 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Button, Input, CardSection, Card } from './src/components/common';
+import firebase from 'firebase';
 
 export default class App extends React.Component {
+
+  componentWillMount() {
+    firebase.initializeApp({
+        apiKey: 'AIzaSyC_oh4mbrFwd4QiIgvr0cx56_qDJqAIWck',
+        authDomain: 'soundr-c9b50.firebaseapp.com',
+        databaseURL: 'https://soundr-c9b50.firebaseio.com',
+        projectId: 'soundr-c9b50',
+        storageBucket: 'soundr-c9b50.appspot.com',
+        messagingSenderId: '773454528049'
+    })
+  }
 
   render() {
     const { container, imageStye } = styles;
@@ -15,7 +27,7 @@ export default class App extends React.Component {
           </CardSection>
           
           <CardSection>
-            <Input label="password" placeholder="password" />
+            <Input label="password" placeholder="password" secureTextEntry />
           </CardSection>
           
           <CardSection>
