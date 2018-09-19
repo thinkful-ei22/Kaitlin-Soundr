@@ -3,6 +3,7 @@ import { StyleSheet, View, Image } from 'react-native';
 import firebase from 'firebase';
 import { Header, Card, Button, CardSection, Spinner } from './src/components/common';
 import LoginForm from './src/components/LoginForm';
+import SongPage from './src/components/SongPage';
 
 export default class App extends React.Component {
   state = { loggedIn: null }
@@ -36,6 +37,7 @@ export default class App extends React.Component {
       case true:
         return (
           <Card>
+            <SongPage />
             <CardSection>
               <Button onPress={() => firebase.auth().signOut()}>
                 Log Out
