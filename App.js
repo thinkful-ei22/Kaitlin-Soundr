@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import { Button, Input, CardSection, Card } from './src/components/common';
+import { Button, Input, CardSection, Header } from './src/components/common';
 import firebase from 'firebase';
 
 export default class App extends React.Component {
@@ -20,30 +20,33 @@ export default class App extends React.Component {
     const { container, imageStye } = styles;
 
     return (
-      <View style={container}>
-        <Image style={imageStye} />
-          <CardSection>
-            <Input label="email" placeholder="email@email.com" />
-          </CardSection>
-          
-          <CardSection>
-            <Input label="password" placeholder="password" secureTextEntry />
-          </CardSection>
-          
-          <CardSection>
-            <Button>
-              Log In
-            </Button>
-          </CardSection>
-      </View>
+      <View>
+        <Header headerText="Soundr" />
+          <View style={container}>
+            <Image style={imageStye} />
+          </View>
+            <CardSection>
+              <Input label="email" placeholder="email@email.com" />
+            </CardSection>
+            
+            <CardSection>
+              <Input label="password" placeholder="password" secureTextEntry />
+            </CardSection>
+            
+            <CardSection>
+              <Button>
+                Log In
+              </Button>
+            </CardSection> 
+      </View>   
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    flex: 0,
+    marginTop: 100,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -53,6 +56,5 @@ const styles = StyleSheet.create({
     borderRadius: 75,
     backgroundColor: '#f7f7f7',
     marginBottom: 20,
-    marginTop: -20
   }
 });
