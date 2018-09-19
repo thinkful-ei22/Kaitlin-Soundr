@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { Button, Input, CardSection, Header } from './src/components/common';
+import { StyleSheet, View, Image } from 'react-native';
 import firebase from 'firebase';
+import { Header, Card, Button, CardSection, Spinner } from './src/components/common';
+import LoginForm from './src/components/LoginForm';
 
 export default class App extends React.Component {
+  state = { loggedIn: null }
 
   componentWillMount() {
     firebase.initializeApp({
@@ -13,7 +15,46 @@ export default class App extends React.Component {
         projectId: 'soundr-c9b50',
         storageBucket: 'soundr-c9b50.appspot.com',
         messagingSenderId: '773454528049'
+    });
+
+    firebase.auth().onAuthStateChanged((user) => {
+      // if logged in, 'user' will be an object
+      // if logged out, 'user' will be null or undefined
+      if (user) {
+        this.setState({ loggedIn: true })
+      } else {
+        this.setState({ loggedIn: false })
+      }
     })
+  }
+
+  // helper conditional - render login OR logout
+
+  renderContent() {
+    // switch instead of if/else
+    switch (this.state.loggedIn) {
+      case true:
+        return (
+          <Card>
+            <CardSection>
+              <Button onPress={() => firebase.auth().signOut()}>
+                Log Out
+              </Button>
+            </CardSection>
+          </Card>
+        )
+      case false: 
+          return (
+          <View>
+            <View style={styles.container}>
+              <Image style={styles.imageStye} />
+            </View>
+            <LoginForm />
+          </View>
+          )
+      default:
+          return <View style={styles.spinnerStyleMain}><Spinner size="large" /></View>
+    }
   }
 
   render() {
@@ -22,22 +63,7 @@ export default class App extends React.Component {
     return (
       <View>
         <Header headerText="Soundr" />
-          <View style={container}>
-            <Image style={imageStye} />
-          </View>
-            <CardSection>
-              <Input label="email" placeholder="email@email.com" />
-            </CardSection>
-            
-            <CardSection>
-              <Input label="password" placeholder="password" secureTextEntry />
-            </CardSection>
-            
-            <CardSection>
-              <Button>
-                Log In
-              </Button>
-            </CardSection> 
+          {this.renderContent()}
       </View>   
     );
   }
@@ -56,5 +82,8 @@ const styles = StyleSheet.create({
     borderRadius: 75,
     backgroundColor: '#f7f7f7',
     marginBottom: 20,
+  },   
+  spinnerStyleMain: {
+    marginTop: 30
   }
 });
