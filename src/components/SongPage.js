@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo';
 import { Button, CardSection } from './common';
 import { PlayerIcon } from 'react-player-controls';
@@ -47,6 +47,7 @@ class SongPage extends Component {
     }
 
   songToggle() {
+
     if (this.state.playing === null) {
       this.playSound()
     }
@@ -69,19 +70,46 @@ class SongPage extends Component {
    playing: null
   };
 
-  render() {
+  render() { 
+    let buttonMessage = 'Play Song';
+    if (this.state.playing === true) {
+      buttonMessage = 'Pause Song'
+    }
+    if (this.state.playing === false) {
+      buttonMessage = 'Resume Song'
+    }
 
     return (
       <View>
-        <Text>I'm so tired</Text>
         <CardSection>
-          <Button 
+
+          <View style={styles.imageContainer}>
+            <Image source={{uri: "https://cdnw.nickpic.host/xhl59A.jpg"}} style={styles.imageStyle}></Image>
+          </View>
+        </CardSection>
+
+        <CardSection>
+           <Button 
             onPress={ () => { this.songToggle() }}>
-            Play Song
+            {buttonMessage}
           </Button>
         </CardSection>
       </View>
     )
+  }
+}
+
+const styles = {
+  imageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  imageStyle: {
+    width: 300, 
+    height: 300,
+    borderRadius: 150
   }
 }
 
