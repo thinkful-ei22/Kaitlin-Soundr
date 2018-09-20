@@ -18,8 +18,18 @@ class SongPage extends Component {
     try {
       // await this.audioPlayer.unloadAsync()
       // await this.audioPlayer.loadAsync(require("../songs/moonlight.mp3"));
-      await this.audioPlayer.stopAsync()
+      await this.audioPlayer.pauseAsync()
       .then(this.setState({playing: false}));
+    } catch (err) {
+      console.warn("Couldn't Play audio", err)
+    }
+  }
+
+
+  resumeSound = async () => {
+    try {
+      await this.audioPlayer.playAsync()
+      .then(this.setState({playing: true}));
     } catch (err) {
       console.warn("Couldn't Play audio", err)
     }
@@ -37,8 +47,11 @@ class SongPage extends Component {
     }
 
   songToggle() {
-    if (!this.state.playing) {
+    if (this.state.playing === null) {
       this.playSound()
+    }
+    if (this.state.playing === false) {
+      this.resumeSound()
     }
     if (this.state.playing) {
       this.stopSound()
@@ -53,7 +66,7 @@ class SongPage extends Component {
    name: '',
    uri: '',
    image: '',
-   playing: false
+   playing: null
   };
 
   render() {
